@@ -36,24 +36,31 @@
        
         
           <div class="card-body">
-           <form  method="POST" action="" id="personForm" >  
+            <form  method="POST" action="{% url 'Admin_Attendance_Show' %}" id="personForm" >
             {% csrf_token %}
               <div class="">
                    <!-- <label>SELECT FROM DATE</label>  -->
                   
                    <label class="sr-only" for="inlineFormInputName2">Select Batch</label>
-                   <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="Department"  style="background-color: #191c24; color: white;">
-                      <option selected></option>
-
-                      <!-- {% for i in department %}
-                      <option value="{{i.id}}">{{i.department}}</option>
-                      {% endfor%} -->
+                   <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="Batch"  style="background-color: #191c24; color: white;">
+                      <option selected="true" disabled="disabled" value="">-Not Selected-</option>
+                      {% for i in b1 %}
+                      <option value="{{i.id}}">{{i.batch_name}}</option>
+                      {% endfor%}
                     </select>
+                </div>
                    <!-- <input type="select" class="form-control mb-2 mr-sm-2" id="txtFrom"> -->
-                  
+                   <div class="">
+                    <!-- <label>SELECT FROM DATE</label>  -->
+                   
+                    <label class="sr-only" for="inlineFormInputName2">Select Designation</label>
+                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="Desig"  style="background-color: #191c24; color: white;">
+                       <!-- <option selected></option> -->
+                      </select>
+                  </div>
               <div class="">
                 <label class="sr-only" for="inlineFormInputName2">Select Name</label>
-                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="Desig"  style="background-color: #191c24; color: white;">
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="name"  style="background-color: #191c24; color: white;">
                   <!-- <option selected></option>
                   {% for i in designation %}
                   <option value="1">{{i.designation}}</option>
@@ -68,9 +75,9 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                    <a href="{% url 'Admin_Attendance_Show' %}">
-                 <button type="button"  style="height: 40px;" id="btnSearch" class="btn btn-primary mb-2 mt-2 w-100">Search</button>
-                </a>
+                   
+                 <button type="submit"  style="height: 40px;" id="btnSearch" class="btn btn-primary mb-2 mt-2 w-100">Search</button>
+               
                 </div>
               </div>
   
@@ -85,12 +92,12 @@
    
 
 
-      <!-- <script type="text/javascript">
-        $("#Department").change(function () {
+      <script type="text/javascript">
+        $("#Batch").change(function () {
           const url = $("#personForm").attr("data-cities-url");
             const deptId = $(this).val();
             $.ajax({
-                url: '#}',
+                url: '{% url 'Admin_At_Designation' %}',
                 data: {
                     'dept_id': deptId
                 },
@@ -103,21 +110,21 @@
         });
         $("#Desig").change(function () {
           const url = $("#personForm").attr("data-cities-url");
-            const deptId = $("#Department").val();
+            const deptId = $("#Batch").val();
             const desigId = $("#Desig").val();
             $.ajax({
-                url: '#' ,
+                url: '{% url 'Admin_At_Name' %}' ,
                 data: {
                     'dept_id': deptId  ,
                     'desig_id': desigId
                 },
                 success: function (data) {
-                    $("#emp").html(data);
+                    $("#name").html(data);
                     console.log(data);
                 }
             });
           });
-       </script> -->
+       </script>
 
 
 

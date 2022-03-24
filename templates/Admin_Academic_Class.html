@@ -34,18 +34,21 @@
     </a>
       </div>
     </div>
+   
     <div class="col-sm-4 grid-margin">
       <div class="card">
-          <a href="" style="cursor: pointer;text-decoration: none;color: inherit;">
+        <!-- {% for i in ba%} -->
+          <a href="{% url 'Admin_ViewClass' %}" style="cursor: pointer;text-decoration: none;color: inherit;">
+            <!-- {% endfor %} -->
         <div class="card-body">
-          
+         
           <div class="row">
             <div class="col-8 col-sm-12 col-xl-8 my-auto">
               <div class="d-flex d-sm-block d-md-flex align-items-center">
                 <h3 class="mb-0" id="a">View Class</h3>
          
               </div>
-           
+              
             </div>
             <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
               <i class="icon-lg mdi mdi-file-multiple text-primary ms-auto"></i>
@@ -54,7 +57,9 @@
         </div>
       </a>
       </div>
+      
     </div>
     
   </div>
+  
   {% endblock %}

@@ -13,36 +13,38 @@
               <div class="col-12 grid-margin">
          <h2>  <small class="text-muted">Reported Issues </small></h2>
 </div></div>
+
   <div class="row">
+    {% for i in designation %} 
     <div class="col-sm-4 grid-margin">
       <div class="card">
-          <a href="{% url 'Admin_Reportedissues' %}" style="cursor: pointer;text-decoration: none;color: inherit;">
+       <a href="{% url 'Admin_Reportedissues_Show' i.id %}" style="cursor: pointer;text-decoration: none;color: inherit;">
         <div class="card-body">
           <div class="row">
             <div class="col-8 col-sm-12 col-xl-8 my-auto">
               <div class="d-flex d-sm-block d-md-flex align-items-center">
-                <h6 class="mb-0" id="a">Manager</h6>
-              </div>
-         
+                <h6 class="mb-0" id="a">{{i.designation}}</h6>
+              </div>       
             </div>
             <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
               <i class="icon-lg mdi mdi-codepen text-primary ms-auto"></i>
             </div>
-          </div>
-       
+          </div>      
         </div>
-    </a>
+        </a>
       </div>
     </div>
-    <div class="col-sm-4 grid-margin">
+    {% endfor %}
+    </div>
+    <!-- <div class="col-sm-4 grid-margin">
       <div class="card">
-          <a href="{% url 'Admin_Reportedissues' %}" style="cursor: pointer;text-decoration: none;color: inherit;">
+          <a href="#" style="cursor: pointer;text-decoration: none;color: inherit;">
         <div class="card-body">
           
           <div class="row">
             <div class="col-8 col-sm-12 col-xl-8 my-auto">
               <div class="d-flex d-sm-block d-md-flex align-items-center">
-                <h3 class="mb-0" id="a">Staff</h3>
+                <h3 class="mb-0" id="a">{{i.designation}}</h3>
          
               </div>
            
@@ -57,7 +59,7 @@
     </div>
     <div class="col-sm-4 grid-margin">
       <div class="card">
-                <a href="{% url 'Admin_Reportedissues' %}" style="cursor: pointer;text-decoration: none;color: inherit;">
+                <a href="#" style="cursor: pointer;text-decoration: none;color: inherit;">
         <div class="card-body">
         
           <div class="row">
@@ -75,5 +77,6 @@
         </div>
       </a></div>
     </div>
-  </div>
+  </div> -->
+
   {% endblock %}

@@ -11,14 +11,28 @@
     <div class="col-md-7 grid-margin stretch-card">
         <div class="card" style="height: 350px;">
             <div class="card-body">
-                <form method="post" action="" enctype="multipart/form-data">
+                <form method="post" action="{% url 'Admin_add_classsave' %}" enctype="multipart/form-data">
                     {% csrf_token %}
-                <div class="form-group row">
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                            Batch
+                        </label>
+                        <div class="col-sm-9">
+                 <select class="form-control" id="batch" style="color:white;" name="batch" required>
+                             <option selected="true" disabled="disabled" value="">-Not Selected-</option>
+                            {% for i in ba %}
+                            <option value="{{i.id}}">{{i.batch_name}}</option>
+                         {% endfor %}
+                          </select>
+                      </div>
+                      </div>
+                    <div class="form-group row">
                     <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
                         Class Name
                     </label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="exampleInputUsername2" name="dept" style="color:inherit;">
+                        <input type="text" class="form-control" id="exampleInputUsername2" name="class" style="color:inherit;">
 
                     </div></div>
                     <div class="form-group row">

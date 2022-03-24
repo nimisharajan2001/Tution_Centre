@@ -105,13 +105,18 @@
                                 <td>developer</td>
                                 <td>11/10/2021</td>
                                 <td>net</td>
-                                <td><a href="#">
+                                <td><a href="" data-toggle="modal" data-target="#myModal"
+                                    style="text-decoration: none;">
+                                    <div class="btn btn-outline-warning">
+                                        <i class=" text-warning mdi mdi-send btn-icon-prepend"></i>Reply</div>
+                                  </a> </td>
+                                <!-- <td><a href="#">
                                     <div class="btn btn-outline-warning" data-toggle="modal"
                                         data-target="#myModal{{i.id}}">
                                         <i class=" text-warning mdi mdi-send btn-icon-prepend"></i>Reply
                                     </div>
 
-                                </a></td>
+                                </a></td> -->
                             </tr>
                         </tbody>
                         <!-- {% for i in var %} -->
@@ -162,8 +167,8 @@
     </div>
 </div>
 <!-- Modal -->
-{% for i in var %}
-<div class="modal" id="myModal{{i.id}}">
+<!-- {% for i in var %} -->
+<div class="modal" id="myModal">
     <div class="modal-dialog">
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 grid-margin stretch-card bg-dark text-light modal-content">
 
