@@ -19,7 +19,7 @@
 
 <div class="row">
     <div class="col-md-7 grid-margin stretch-card">
-        <div class="card" style="height: 420px;">
+        <div class="card" style="height: 380px;">
             <div class="card-body">
                 {%for i in var %}
                 <form method="post" action="{% url 'Admin_UpdateSubject_save' i.id %}" enctype="multipart/form-data">{%endfor%}
@@ -45,14 +45,14 @@
                             <input type="text" class="form-control" id="exampleInputUsername2" name="subject" style="color:inherit;" value="{{vars.subject_name}}">
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
                             Subject Type
                         </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="exampleInputUsername2" name="haful" style="color:inherit;" value="{{vars.subject_status}}">
                         </div>
-                    </div>
+                    </div> -->
                     <!-- <div class="form-group row">
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">

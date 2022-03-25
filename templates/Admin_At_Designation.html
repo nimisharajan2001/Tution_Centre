@@ -1,5 +1,6 @@
 <option selected="true" disabled="disabled" value="">-Not Selected-</option>
 {% for desig in Desig %}
+{% if desig.designation != 'Admin' %}
 <option value="{{ desig.id }}">{{ desig.designation }}</option>
-
+{%endif%}
 {% endfor %}

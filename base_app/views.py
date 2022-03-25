@@ -75,11 +75,10 @@ def Admin_AddSubject(request):
 
 def Admin_AddSubject_save(request):
     if request.method == 'POST':
-        sub = request.POST['subject']
-        type = request.POST['haful']
+        sub = request.POST['subject']       
         rate = request.POST['rate']
         ba = request.POST['batch']
-        a=add_subject(subject_name=sub,subject_status=type,batch_name_id=ba,Rate=rate)
+        a=add_subject(subject_name=sub,batch_name_id=ba,Rate=rate)
         a.save()
         m="Subject added Successfully"
     return render(request,'Admin_AddSubject.html',{'m':m})
@@ -95,7 +94,6 @@ def Admin_UpdateSubject_save(request,id):
     if request.method == 'POST':
         abc = add_subject.objects.get(id=id)
         abc.subject_name= request.POST.get('subject')
-        abc.subject_status = request.POST.get('haful')
         abc.Rate = request.POST.get('rate')
         abc.batch_name_id = request.POST.get('batch')
         abc.save()
@@ -162,7 +160,7 @@ def Admin_Reportedissues_Show(request,id):
 #---------Leave-------
 
 def Admin_LeaveRequest(request):
-    var = Leave.objects.all()
+    var = Leave.objects.all().order_by("-id")
     return render(request,'Admin_LeaveRequest.html',{'var':var})
 
 #------------------MANAGER--------------
@@ -212,20 +210,22 @@ def MAN_ViewClass(request):
     ba=batch.objects.filter(batch_name=batch_name_id)
     return render(request,'MAN_ViewClass.html',{'var':var,'ba':ba})
 
-def login(request):
-    des = designation.objects.get(designation='trainingmanager')
-    des1 = designation.objects.get(designation='trainer')
-    des2 = designation.objects.get(designation='trainee')
-    des3 = designation.objects.get(designation='account')
+
+    
+def login (request): 
+    
+    # des = designation.objects.get(designation='trainingmanager')
+    # des1 = designation.objects.get(designation='trainer')
+    # des2 = designation.objects.get(designation='trainee')
+    # des3 = designation.objects.get(designation='account')
     manag = designation.objects.get(designation="manager")
-    Adm1 = designation.objects.get(designation="Admin")
-    design2 = designation.objects.get(designation="tester")
-    design = designation.objects.get(designation="team leader")
-    design1 = designation.objects.get(designation="project manager")
-    design3 = designation.objects.get(designation="developer")
+    # Adm1 = designation.objects.get(designation="Admin")
+    # design2 = designation.objects.get(designation="tester")
+    # design = designation.objects.get(designation="team leader")
+    # design1 = designation.objects.get(designation="project manager")
+    # design3 = designation.objects.get(designation="developer")
     
-    
-def login (request):   
+
     if request.method == 'POST':     
         email  = request.POST['email']
         password = request.POST['password']
@@ -237,4 +237,17 @@ def login (request):
             Trainer = designation.objects.get(designation='trainer')
             trcount=user_registration.objects.filter(designation=Trainer).count()
             return render( request,'Admin_idex.html')
+    elif user_registration.objects.filter(email=request.POST['email'], password=request.POST['password'],designation=manag.id).exists():
+            
+            member=user_registration.objects.get(email=request.POST['email'], password=request.POST['password'])
+            request.session['m_id'] = member.designation_id
+            request.session['usernamets1'] = member.fullname
+            request.session['usernamehr2'] = member.branch_id
+            request.session['m_id'] = member.id 
+            mem=user_registration.objects.filter(id= member.id)
+            Num = user_registration.objects.count()
+            # Num1 = project.objects.count()
+            Trainer = designation.objects.get(designation='trainer')
+            trcount=user_registration.objects.filter(designation=Trainer).count()
+            return render(request,'MAN_index.html',{'mem':mem,'num':Num,'trcount':trcount})       
     return render(request,'login.html')
