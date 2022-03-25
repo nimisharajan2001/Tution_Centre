@@ -36,7 +36,9 @@
        
         
           <div class="card-body">
+            
             <form  method="POST" action="{% url 'Admin_Attendance_Show' %}" id="personForm" >
+              
             {% csrf_token %}
               <div class="">
                    <!-- <label>SELECT FROM DATE</label>  -->
@@ -60,7 +62,7 @@
                   </div>
               <div class="">
                 <label class="sr-only" for="inlineFormInputName2">Select Name</label>
-                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="name"  style="background-color: #191c24; color: white;">
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="name"  name="empname" style="background-color: #191c24; color: white;">
                   <!-- <option selected></option>
                   {% for i in designation %}
                   <option value="1">{{i.designation}}</option>

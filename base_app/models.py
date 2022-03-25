@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 class batch(models.Model):
     batch_name = models.CharField(max_length=100)
@@ -63,6 +63,9 @@ class user_registration(models.Model):
     bank_name = models.CharField(max_length=240, null=True, default='')
     bank_branch = models.CharField(max_length=240, null=True, default='')
     payment_status = models.CharField(max_length=200, null=True, default='')
+
+    def __str__(self):
+        return self.fullname
    
 
    
@@ -86,3 +89,22 @@ class reported_issue(models.Model):
     status = models.CharField(max_length=200)
     issuestatus = models.CharField(max_length=200)
     designation_id = models.CharField(max_length=200)
+
+    def _str_(self):
+        return self.reporter
+    # def __str__(self):
+    #     return self.reporter
+
+class Leave(models.Model):
+    user = models.ForeignKey(user_registration, on_delete=models.DO_NOTHING,
+                             related_name='leaveuser', null=True, blank=True)
+    from_date = models.DateField(
+        auto_now_add=False, auto_now=False,  null=True, blank=True)
+    to_date = models.DateField(
+        auto_now_add=False, auto_now=False,  null=True, blank=True)
+    reason = models.TextField()
+    leave_status = models.CharField(max_length=200)
+    status = models.CharField(max_length=200)
+    designation_id = models.CharField(max_length=200)
+    leaveapprovedstatus = models.CharField(max_length=200)
+    leave_rejected_reason = models.CharField(max_length=300)

@@ -1,4 +1,4 @@
-{% extends 'Admin_index.html' %}
+{% extends 'MAN_index.html' %}
 {% block content %}
 {% load static %}
 
@@ -13,21 +13,13 @@
           
             <div class="col-8 col-sm-12 col-xl-8 my-auto">
               <div class="d-flex d-sm-block d-md-flex align-items-center">
-                <h6 class="mb-0" id="a">{{i.subject_name}}</h6><br>
+                <h6 class="mb-0" id="a">{{i.class_name}}</h6><br>
               </div>
             </div>
-            <!-- <br> -->
-            <!-- <div class="col-8 col-sm-12 col-xl-8 my-auto">
-                <div class="d-flex d-sm-block d-md-flex align-items-center">
-                  <h6 class="mb-0" id="a">{{i.subject_status}} Subject</h6>
-                </div>
-              </div> -->
-        
-              
             <br>
             <div class="col-8 col-sm-12 col-xl-8 my-auto">
                 <div class="d-flex d-sm-block d-md-flex align-items-center">
-                  <h6 class="mb-0" id="a">{{i.Rate}}</h6>
+                  <h6 class="mb-0" id="a">{{i.description}}</h6>
                 </div>
               </div>
               <br>
@@ -43,11 +35,11 @@
              
               <br>
                 <div class="row">
-                    <div class="col-md-4" style="width: fit-content;"> <a href="{% url 'Admin_UpdateSubject' i.id %}" class="btn  btn-outline-warning">
+                    <div class="col-md-4" style="width: fit-content;"> <a href="{% url 'MAN_UpdateClass' i.id %}" class="btn  btn-outline-warning">
                         <i class="mdi mdi-file-check btn-icon-prepend"></i> Update</a></div>
                     <div class="col-md-1"></div>
                    
-                    <div class="col-md-5"> <a href="{% url 'Admin_deletesubject' i.id %}" class="btn btn-social-icon-text btn-outline-danger" 
+                    <div class="col-md-5"> <a href="{% url 'MAN_deleteclass' i.id %}" class="btn btn-social-icon-text btn-outline-danger" 
                         onclick="return confirm('Are you sure you want to delete this item?');">
                         <i class="mdi mdi-delete-forever"></i> Delete</a></div>
                     

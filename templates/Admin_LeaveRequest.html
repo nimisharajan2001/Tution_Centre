@@ -46,35 +46,24 @@
                     </tr>
                   </thead>
                   <tbody id="myTable">
-                    <tr>
-                      <td>1</td>
-                      <td>15/02/2022 </td>
-                      <td> 21/02/2022</td>
-                      <td> Half Day </td>
-                      <td>On Sick</td>
-                      <td><a href="#">
-                        <div class="btn btn-outline-warning" data-toggle="modal"
-                            data-target="#myModal">
-                            <i class=" text-warning mdi mdi-send btn-icon-prepend"></i>Pending
-                        </div>
-
-                    </a></td>
-                    </tr>
                    
+                   
+                  
+                   {% for i in var %}
+                   {% if i.leaveapprovedstatus == "Approved" %}
                    <tr>
-                    <td>2</td>
-                    <td>25/02/2022 </td>
-                    <td> 28/02/2022</td>
-                    <td>Full Day </td>
-                    <td>On Sick</td>
-                    <td><a href="#">
-                      <div class="btn btn-outline-warning" data-toggle="modal"
-                          data-target="#myModal">
-                          <i class=" text-warning mdi mdi-send btn-icon-prepend"></i>Pending
-                      </div>
+                    <td>{{forloop.counter}}</td>
+                    <td> {{i.from_date|date:"d-m-Y"}} </td>
+                    <td> {{i.to_date|date:"d-m-Y"}}</td>
+                    <td>{{i.leave_status}}</td>
+                    <td>{{i.reason}}</td>
+                    <td>
+                        <div class="badge badge-outline-success">{{i.leaveapprovedstatus}}</div>
+                    </td>     
+                </tr>
+                {% endif %}
+                {%endfor%}
 
-                  </a> </td>
-                   </tr>
                   </tbody>
                 </table>
               </div>
@@ -85,53 +74,7 @@
     </div>
 
 
-    <!-- {% for i in var %} -->
-<div class="modal" id="myModal">
-    <div class="modal-dialog">
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 grid-margin stretch-card bg-dark text-light modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Reply</h4>
-                <button type="button" style="color: white; border: none;background-color: transparent;" class="close"
-                    data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form action="{% url 'projectreply' i.id %}" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row p-3">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
-                                    <textarea class="col-12 col-sm-12 col-md-12 col-lg-12 form-control  text-light"
-                                        style="height: 200px; background-color: #2A3038; " name="reply"
-                                        rows="4"> </textarea>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center pb-3">
-                                <button type="submit" onclick="redirect()"
-                                    class="btn btn-outline-primary btn-icon-text ">
-                                    <i class="text-primary mdi mdi-send btn-icon-prepend"></i>
-                                    Send
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                </form>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- {% endfor%} -->
-
-
-
+  
   </body>
 </html>
 

@@ -56,18 +56,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  {% for i in atten %}
-                  <td>{{i.date}}</td>
-                  <td>{{i.status}}</td>
-                  {% endfor %}
-                </tr>
-                <tr>
+             
+                <!-- <tr>
                   <td>12/08/2020</td>
                   <td><div class="badge badge-outline-success">Present</div></td>
-                </tr>
+                </tr> -->
                 {% for i in atten %}  
-            
+                
                     <tr>
                       <td>{{ i.date|date:"d-m-Y" }}</td>
                      
@@ -78,7 +73,7 @@
                    {% endif %}
                       
                     </tr>
-                    
+                   
                 {% endfor %}
                 <!-- {% for i in atten %}
                   {% if i.user.fullname == empname1 %}
