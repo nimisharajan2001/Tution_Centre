@@ -4,7 +4,7 @@ from django.urls import re_path
 
 urlpatterns=[  
      
-      # re_path(r'^$', views.login, name='login'),
+      re_path(r'^$', views.login, name='login'),
 
       re_path(r'^Admin_index/$', views.Admin_index,
             name='Admin_index'),

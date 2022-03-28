@@ -7,7 +7,7 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from .models import *
 
-from django.contrib.auth import authenticate, login, logout
+# from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
@@ -24,12 +24,29 @@ from django.contrib.auth import authenticate, login, logout
 #         return redirect('/') 
 
 
+def login(request):
+    manag = designation.objects.get(designation="manager")
+    if request.method == 'POST':       
+        if user_registration.objects.filter(email=request.POST['email'], password=request.POST['password'],designation=manag.id).exists():           
+            member=user_registration.objects.get(email=request.POST['email'], password=request.POST['password'])
+            request.session['m_id'] = member.designation_id
+            request.session['usernamets1'] = member.fullname
+            request.session['usernamehr2'] = member.batch_id
+            request.session['m_id'] = member.id 
+            mem=user_registration.objects.filter(id= member.id)
+            Num = user_registration.objects.count()
+            return render(request,'MAN_index.html',{'mem':mem,'num':Num})
+        else:
+            context = {'msg_error': 'Invalid data'}
+            return render(request, 'login.html', context)
+    return render(request,'login.html')
+
+
 def Admin_index(request):
     if request.session.has_key('SAdm_id'):
         SAdm_id = request.session['SAdm_id']
     else:
         variable="dummy"
-    # mem = user_registration.objects.filter(id=SAdm_id)
     return render(request,'Admin_index.html')
 
 #-------Academic---------
@@ -275,72 +292,95 @@ def Admin_LeaveRequest(request):
 
 #------------------MANAGER--------------
 
-def MAN_index(request):
-    if request.session.has_key('m_id'):
-        m_id = request.session['m_id']
-    else:
-        variable="dummy"   
-    return render(request,'MAN_index.html')
-    
-
 # def MAN_index(request):
+#     if request.session.has_key('m_id'):
+#         m_id = request.session['m_id']
+#     else:
+#         variable="dummy"   
 #     return render(request,'MAN_index.html')
 
+
+def MAN_index(request):
+    if 'm_id' in request.session:
+        if request.session.has_key('m_id'):
+            m_id = request.session['m_id']        
+        mem = user_registration.objects.filter(id=m_id)
+        return render(request,'MAN_index.html',{'mem':mem})
+
 def MAN_Academic(request):
-    if request.session.has_key('m_id'):
-        m_id = request.session['m_id']
+    if 'm_id' in request.session:
+        if request.session.has_key('m_id'):
+            m_id = request.session['m_id']
+        else:
+            variable="dummy"  
+        mem = user_registration.objects.filter(id=m_id)
+        ba = batch.objects.all()
+        var = class_registration.objects.all()
+        return render(request,'MAN_Academic.html',{'ba':ba,'var':var,'mem':mem})
     else:
-        variable="dummy"  
-    ba = batch.objects.all()
-    var = class_registration.objects.all()
-    return render(request,'MAN_Academic.html',{'ba':ba,'var':var})
+        return redirect('/') 
 
 
 def MAN_UpdateClass(request,id):
-    if request.session.has_key('m_id'):
-        m_id = request.session['m_id']
+    if 'm_id' in request.session:
+        if request.session.has_key('m_id'):
+            m_id = request.session['m_id']
+        else:
+            variable="dummy"  
+        mem = user_registration.objects.filter(id=m_id) 
+        var= class_registration.objects.filter(id=id)
+        vars=class_registration.objects.get(id=id)
+        ba = batch.objects.all()
+        return render(request,'MAN_UpdateClass.html',{'ba':ba,'var':var,'vars':vars,'mem':mem})
     else:
-        variable="dummy"  
-    var= class_registration.objects.filter(id=id)
-    vars=class_registration.objects.get(id=id)
-    ba = batch.objects.all()
-    return render(request,'MAN_UpdateClass.html',{'ba':ba,'var':var,'vars':vars})
+        return redirect('/') 
 
 
 def MAN_Update_Classsave(request,id):
-    if request.session.has_key('m_id'):
-        m_id = request.session['m_id']
+    if 'm_id' in request.session:
+        if request.session.has_key('m_id'):
+            m_id = request.session['m_id']
+        else:
+            variable="dummy"  
+        mem = user_registration.objects.filter(id=m_id)  
+        if request.method == 'POST':
+            var = class_registration.objects.get(id=id)
+            var.class_name= request.POST.get('class')
+            var.description = request.POST.get('discrip')
+            var.batch_name_id = request.POST.get('batch')
+            var.save()
+            # m="Class updated Successfully"
+        return render(request,'MAN_UpdateClass.html',{'mem':mem})
     else:
-        variable="dummy"  
-    if request.method == 'POST':
-        var = class_registration.objects.get(id=id)
-        var.class_name= request.POST.get('class')
-        var.description = request.POST.get('discrip')
-        var.batch_name_id = request.POST.get('batch')
-        var.save()
-        m="Class updated Successfully"
-    return render(request,'MAN_UpdateClass.html',{'m':m})
+        return redirect('/') 
+
 
 
 def MAN_deleteclass(request,id):
-    if request.session.has_key('m_id'):
-        m_id = request.session['m_id']
+    if 'm_id' in request.session:
+        if request.session.has_key('m_id'):
+            m_id = request.session['m_id']
+        else:
+            variable="dummy"  
+        mem = user_registration.objects.filter(id=m_id)  
+        m = class_registration.objects.get(id=id)
+        m.delete()
+        return redirect('MAN_ViewClass',{'mem':mem})
     else:
-        variable="dummy"  
-    m = class_registration.objects.get(id=id)
-    m.delete()
-    return redirect('MAN_ViewClass')
+        return redirect('/') 
 
 
 def MAN_ViewClass(request):
-    if request.session.has_key('m_id'):
-        m_id = request.session['m_id']
+    if 'm_id' in request.session:
+        if request.session.has_key('m_id'):
+            m_id = request.session['m_id']
+        else:
+            variable="dummy"  
+        mem = user_registration.objects.filter(id=m_id)  
+        var =class_registration.objects.all()
+        batch_name_id = request.GET.get('batch_name_id ')
+        ba=batch.objects.filter(batch_name=batch_name_id)
+        return render(request,'MAN_ViewClass.html',{'var':var,'ba':ba,'mem':mem})
     else:
-        variable="dummy"  
-    var =class_registration.objects.all()
-    batch_name_id = request.GET.get('batch_name_id ')
-    ba=batch.objects.filter(batch_name=batch_name_id)
-    return render(request,'MAN_ViewClass.html',{'var':var,'ba':ba})
+        return redirect('/') 
 
-
-    
