@@ -13,8 +13,7 @@ class class_registration(models.Model):
     
 class add_subject(models.Model):
     batch_name = models.ForeignKey(batch,on_delete=models.DO_NOTHING,related_name='batchsubject',null=True,blank=True)
-    subject_name = models.CharField(max_length=100)
-   
+    subject_name = models.CharField(max_length=100)  
     Rate = models.CharField(max_length=100)
 
 

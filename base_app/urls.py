@@ -8,6 +8,7 @@ urlpatterns=[
 
       re_path(r'^Admin_index/$', views.Admin_index,
             name='Admin_index'),
+
       #-------Academic------
       re_path(r'^Admin_Academic/$', views.Admin_Academic,
             name='Admin_Academic'),
@@ -58,11 +59,18 @@ urlpatterns=[
                   name='Admin_Reportedissues'),
       re_path(r'^Admin_Reportedissues_Show/(?P<id>\d+)/$', views.Admin_Reportedissues_Show,
                   name='Admin_Reportedissues_Show'),
+      re_path(r'^Admin_ManagerReportedissue/(?P<id>\d+)/$', views.Admin_ManagerReportedissue,
+                  name='Admin_ManagerReportedissue'),
 
       #--------Leave--------
 
-      re_path(r'^Admin_LeaveRequest/$', views.Admin_LeaveRequest,
-                  name='Admin_LeaveRequest'),
+
+      re_path(r'^Admin_ManagerLeaveRequest/$', views.Admin_ManagerLeaveRequest,
+                  name='Admin_ManagerLeaveRequest'),
+      re_path(r'^Admin_acceptedManager_leave/(?P<id>\d+)/$', views.Admin_acceptedManager_leave,
+                  name='Admin_acceptedManager_leave'),
+      re_path(r'^Admin_rejectedManager_leave/(?P<id>\d+)/$', views.Admin_rejectedManager_leave, 
+                  name='Admin_rejectedManager_leave'),
         
       #-----------MANAGER------------
 

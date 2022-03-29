@@ -11,7 +11,6 @@ from .models import *
 
 # Create your views here.
 
-
 # def Admin_index(request):
 #     if 'SAdm_id' in request.session:
 #         if request.session.has_key('SAdm_id'):
@@ -280,15 +279,46 @@ def Admin_Reportedissues_Show(request,id):
     user=user_registration.objects.filter(designation=designations).order_by("-id")
     return render(request,'Admin_Reportedissues_Show.html',{'designation':designations,'reported_issue':reported_issues,'user_registration':user})
 
-#---------Leave-------
-
-def Admin_LeaveRequest(request):
+def Admin_ManagerReportedissue(request,id):
     if request.session.has_key('SAdm_id'):
         SAdm_id = request.session['SAdm_id']
     else:
         variable="dummy"
-    var = Leave.objects.all().order_by("-id")
-    return render(request,'Admin_LeaveRequest.html',{'var':var})
+    reported_issues=reported_issue.objects.all()
+    designations=designation.objects.get(id=id)
+    user=user_registration.objects.filter(designation=designations).order_by("-id")
+    return render(request,'Admin_ManagerReportedissue.html',{'designation':designations,'reported_issue':reported_issues,'user_registration':user})
+
+#---------Leave-------
+
+
+
+def Admin_ManagerLeaveRequest(request):
+    if request.session.has_key('SAdm_id'):
+        SAdm_id = request.session['SAdm_id']
+    else:
+        variable="dummy"
+    Man = designation.objects.get(designation='manager')
+    var = Leave.objects.filter(designation_id=Man.id).all().order_by("-id")
+    return render(request,'Admin_ManagerLeaveRequest.html',{'var':var})
+
+def Admin_rejectedManager_leave(request,id):
+    if request.session.has_key('SAdm_id'):
+        SAdm_id = request.session['SAdm_id']
+    else:
+        variable="dummy"
+    if request.method == 'POST':
+        staff_reason=request.POST.get('reply')
+        pro_sts = Leave.objects.filter(id=id).update(leave_rejected_reason= staff_reason,leaveapprovedstatus ='Rejected')      
+    return redirect('Admin_ManagerLeaveRequest')
+
+def Admin_acceptedManager_leave(request,id):
+    if request.session.has_key('SAdm_id'):
+        SAdm_id = request.session['SAdm_id']
+    else:
+        variable="dummy"    
+    al = Leave.objects.filter(id=id).update(leaveapprovedstatus ='Approved')     
+    return redirect('Admin_ManagerLeaveRequest')
 
 #------------------MANAGER--------------
 
